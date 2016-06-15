@@ -554,3 +554,8 @@ function priv_check_user($user, $ability, $args = null)
 {
     return app()->make('OsuAuthorize')->doCheckUser($user, $ability, $args);
 }
+
+function xxzx()
+{
+    return implode(', ', model_pluck(\App\Models\Beatmapset::select(), 'beatmapset_id'));
+}

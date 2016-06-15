@@ -49,9 +49,25 @@ class BeatmapDiscussionsController extends Controller
             ]
         );
 
+        var_dump($params);
+
         if ($discussion->vote($params)) {
+            // var_dump('after save: '.xxzx());
+            // var_dump(\App\Models\Beatmapset::first()->toArray());
+
+            try {
+                // var_dump($discussion->beatmapsetDiscussion->beatmapset_id);
+                // var_dump(\App\Models\Beatmapset::find($discussion->beatmapset_id));
+                $discussion->beatmapsetDiscussion->defaultJson(Auth::user());
+            } catch (\Exception $e) {
+                var_dump('after exception: '.xxzx());
+                var_dump($e);
+            }
+
             return $discussion->beatmapsetDiscussion->defaultJson(Auth::user());
         } else {
+            // var_dump('after failing save: '.xxzx());
+
             return error_popup(trans('beatmaps.discussion-votes.update.error'));
         }
     }

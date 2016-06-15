@@ -52,8 +52,25 @@ class BeatmapsetDiscussion extends Model
             $includes[] = "beatmap_discussions.current_user_attributes:user_id({$currentUser->user_id})";
         }
 
+        var_dump('before calling static::with(2): '.xxzx());
+        static::with(['beatmapDiscussions', 'beatmapDiscussions.beatmapDiscussionPosts'])->find($this->id);
+        var_dump('after calling static::with(2): '.xxzx());
+
+        var_dump('before calling static::with(2b): '.xxzx());
+        static::with(['beatmapDiscussions', 'beatmapDiscussions.beatmapDiscussionVotes'])->find($this->id);
+        var_dump('after calling static::with(2b): '.xxzx());
+
+        var_dump('before calling static::with(3): '.xxzx());
+        static::with(['beatmapDiscussions', 'beatmapDiscussions.beatmapDiscussionPosts', 'beatmapDiscussions.beatmapDiscussionVotes'])->find($this->id);
+        var_dump('after calling static::with(3): '.xxzx());
+
         return fractal_item_array(
-            static::with('beatmapDiscussions.beatmapDiscussionPosts', 'beatmapDiscussions.beatmapDiscussionVotes')->find($this->id),
+            static::with([
+                // breakage in travis without this include
+                'beatmapDiscussions',
+                'beatmapDiscussions.beatmapDiscussionPosts',
+                'beatmapDiscussions.beatmapDiscussionVotes',
+            ])->find($this->id),
             new BeatmapsetDiscussionTransformer(),
             implode(',', $includes)
         );

@@ -127,15 +127,20 @@ class BeatmapDiscussion extends Model
 
     public function vote($params)
     {
+        // var_dump('initial: '.xxzx());
         $vote = $this->beatmapDiscussionVotes()->where(['user_id' => $params['user_id']])->firstOrNew([]);
 
         $vote->fill($params);
+        // var_dump('after fill: '.xxzx());
 
         if ($vote->score === null) {
             $vote->delete();
+            // var_dump('after delete: '.xxzx());
 
             return true;
         } else {
+            // var_dump('before save: '.xxzx());
+
             return $vote->save();
         }
     }

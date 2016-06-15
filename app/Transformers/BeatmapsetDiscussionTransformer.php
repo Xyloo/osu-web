@@ -49,6 +49,10 @@ class BeatmapsetDiscussionTransformer extends Fractal\TransformerAbstract
 
     public function includeUsers(BeatmapsetDiscussion $discussion)
     {
+        // var_dump('inside include user: '.xxzx());
+        // var_dump($discussion->beatmapset_id);
+        // var_dump($discussion->beatmapset);
+        // var_dump(\App\Models\Beatmapset::find($discussion->beatmapset_id));
         $userIds = [$discussion->beatmapset->user_id];
 
         foreach ($discussion->beatmapDiscussions as $beatmapDiscussion) {
