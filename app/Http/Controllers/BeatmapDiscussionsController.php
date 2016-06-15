@@ -37,6 +37,7 @@ class BeatmapDiscussionsController extends Controller
 
     public function vote($id)
     {
+        var_dump('enter vote: '.xxzx());
         $discussion = BeatmapDiscussion::findOrFail($id);
 
         priv_check('BeatmapDiscussionVote', $discussion)->ensureCan();
