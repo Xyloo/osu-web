@@ -41,6 +41,9 @@ class BeatmapDiscussionsControllerTest extends TestCase
     // normal vote
     public function testPutVoteInitial()
     {
+        $this->beatmapDiscussion->vote(['score' => 1, 'user_id' => $this->user->user_id]);
+        $this->beatmapDiscussion->vote(['score' => 0, 'user_id' => $this->user->user_id]);
+
         $currentVotes = BeatmapDiscussionVote::count();
         $currentScore = $this->currentScore($this->beatmapDiscussion);
 
